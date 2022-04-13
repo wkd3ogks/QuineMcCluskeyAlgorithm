@@ -1,10 +1,16 @@
+#include <stdbool.h>
 #include <stdlib.h>
 
 typedef struct _Node {
 	struct _Node* next;
-	unsigned int data;
+	int data;
+	int dashData;
+	bool checked;
 } Node;
 
-void addNode(Node* target, int data);
 Node* LinkedList();
-void printAllNode(Node*);
+
+Node* addNode(Node* target, int data);
+void printAllNode(Node* head);
+void removeNode(Node* target);
+void swapLinkedList(Node* head1, Node* head2);

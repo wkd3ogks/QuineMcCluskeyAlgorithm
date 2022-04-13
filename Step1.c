@@ -59,12 +59,13 @@ int parseBinaryData(Node** groups, char* inputData, int inputBitLength) {
 	int i, oneCnt = 0, decimal = 0, squareOf2 = 1;
 
 	// 이진수를 십진수로 변환
-	for (i = inputBitLength + 1; i > 1; i--) {
-		decimal += squareOf2 * (oneCnt += inputData[i] - 48);
+	for (i = inputBitLength + 1; i > 1; i--) { 
+		oneCnt += inputData[i] - 48;
+		decimal += squareOf2 * (inputData[i] - 48);
 		squareOf2 *= 2;
 	}
 
-	decimal = decimal | (squareOf2 * 2 * (mode == 'd' ? 1 : 0));
+	//decimal = decimal | (squareOf2 * (mode == 'd' ? 1 : 0));
 	
 	/*
 	TODO : 그룹에 추가

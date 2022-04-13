@@ -3,15 +3,17 @@
 #include "linkedlist.h"
 
 // head 뒤에 계속 추가된다. ㅁ-new-ㅁ
-void addNode(Node* target, int data) {
+Node* addNode(Node* target, int data) {
 	Node* newNode;
 	if ((newNode = (Node *)malloc(sizeof(Node))) != NULL) {
 		newNode->next = target->next;
 		newNode->data = data;
 		target->next = newNode;
+		return newNode;
 	}
 	else {
 		printf("[ ERROR ] Can't Add new Element in LinkedList (malloc Function Return NULL)\n");
+		return NULL;
 	}
 
 }
@@ -40,6 +42,21 @@ void addNode(Node* target, int data) {
 	 printf("\n");
  }
 
- /*
+ void removeNode(Node* target)    // 기준 노드의 다음 노드를 삭제하는 함수
+ {
+	 Node* removeNode = target->next;    // 기준 노드의 다음 노드 주소를 저장
+	 if (removeNode != NULL) {
+		 target->next = removeNode->next;
+	 }
+	 else {
+		 target->next = NULL;
+	 }
 
-}*/
+	 free(removeNode);    // 노드 메모리 해제
+ }
+
+ void swapLinkedList(Node* head1, Node* head2) {
+	 Node* temp = head1->next;
+	 head1->next = head2->next;
+	 head2->next = head1->next;
+ }
