@@ -7,4 +7,4 @@ typedef struct _Node {
 
 void addNode(Node* target, int data);
 Node* LinkedList();
-
+void printAllNode(Node*);

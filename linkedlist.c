@@ -30,14 +30,16 @@ void addNode(Node* target, int data) {
 
  }
 
+ void printAllNode(Node* head) {
+	 printf("Node Data : ");
+	 Node* current = head->next;
+	 while (current != NULL) {
+		 printf("%d ", current->data);
+		 current = current->next;
+	 }
+	 printf("\n");
+ }
+
  /*
-Node* a = LinkedList();
-printf("%d", a->data);
-addNode(a, 2);
-addNode(a, 3);
-addNode(a, 4);
-Node* curr = a->next;
-while (curr != NULL) {
-	printf("%d ", curr->data);
-	curr = curr->next;
+
 }*/
