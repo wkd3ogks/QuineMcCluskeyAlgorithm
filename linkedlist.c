@@ -41,6 +41,15 @@ Node* addNode(Node* target, int data) {
 	 }
 	 printf("\n");
  }
+ void printAllNodeWithDash(Node* head) {
+	 printf("[ Node Data ]\n");
+	 Node* current = head->next;
+	 while (current != NULL) {
+		 printf("Data : %d, DashData : %d\n", current->data, current->dashData);
+		 current = current->next;
+	 }
+	 printf("\n");
+ }
 
  void removeNode(Node* target)    // 기준 노드의 다음 노드를 삭제하는 함수
  {
@@ -53,10 +62,4 @@ Node* addNode(Node* target, int data) {
 	 }
 
 	 free(removeNode);    // 노드 메모리 해제
- }
-
- void swapLinkedList(Node* head1, Node* head2) {
-	 Node* temp = head1->next;
-	 head1->next = head2->next;
-	 head2->next = head1->next;
  }

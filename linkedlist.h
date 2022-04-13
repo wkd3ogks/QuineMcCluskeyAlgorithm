@@ -13,4 +13,5 @@ Node* LinkedList();
 Node* addNode(Node* target, int data);
 void printAllNode(Node* head);
 void removeNode(Node* target);
-void swapLinkedList(Node* head1, Node* head2);
+void swapLinkedListArr(Node** head1, Node** head2);
+void printAllNodeWithDash(Node* head);
