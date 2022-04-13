@@ -10,10 +10,9 @@
 
 //Cost 구하는 부분은 그리디로 풀 수 있으면 그리디로 그렇지 못하면 DP로  
 
+
 #include <stdio.h>
 #include <stdlib.h>
-
-#include <time.h>
 
 #include "linkedlist.h"
 #include "step.h"
@@ -23,10 +22,11 @@
 
 int main(void) 
 {
-	int inputBitLength;
-	Node** groups;
+	int    inputBitLength;
+	Node** groups = step1(&inputBitLength);
+
 	printf("[ QuineMcCluskeyAlgorithm Start ] \n\n");
-	if (groups = step1(&inputBitLength) != NULL) {
+	if (groups != NULL) {
 		printf("============== Step 1 Succeed ==============\n\n");
 	}
 	else {

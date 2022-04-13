@@ -4,7 +4,7 @@
 
 // head 뒤에 계속 추가된다. ㅁ-new-ㅁ
 void addNode(Node* target, int data) {
-	Node* newNode;;
+	Node* newNode;
 	if ((newNode = (Node *)malloc(sizeof(Node))) != NULL) {
 		newNode->next = target->next;
 		newNode->data = data;
