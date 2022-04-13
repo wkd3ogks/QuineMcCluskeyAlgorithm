@@ -142,6 +142,7 @@
     <ClInclude Include="linkedlist.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="step.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="linkedlist.c">
@@ -149,6 +150,9 @@
       </ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="main.c" />
+    <ClCompile Include="Step1.c" />
+    <ClCompile Include="step2-3.c" />
+    <ClCompile Include="step4-7.c" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="input_minterm.txt" />

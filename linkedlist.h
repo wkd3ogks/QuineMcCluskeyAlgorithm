@@ -2,7 +2,7 @@
 
 typedef struct _Node {
 	struct _Node* next;
-	int data;
+	unsigned int data;
 } Node;
 
 void addNode(Node* target, int data);
