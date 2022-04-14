@@ -4,18 +4,17 @@
 typedef struct _Node {
 	struct _Node* next;
 	int data;
-	int dashData;
+	int* dashData;
 	bool checked;
 } Node;
 
 Node* LinkedList();
 
-Node* addNode(Node* target, int data);
+Node* addNode(Node* target, int data, int inputBitLength);
 Node* copyNode(Node* target, Node* object);
 
 void printAllNode(Node* head);
 void removeNode(Node* target);
-void swapLinkedListArr(Node** head1, Node** head2);
 void printAllNodeWithDash(Node* head);
 
 void deleteLinkedList(Node* head);

@@ -3,12 +3,12 @@
 #include "linkedlist.h"
 
 // head 뒤에 계속 추가된다. ㅁ-new-ㅁ
-Node* addNode(Node* target, int data) {
+Node* addNode(Node* target, int data, int inputBitLength) {
 	Node* newNode;
 	if ((newNode = (Node *)malloc(sizeof(Node))) != NULL) {
 		newNode->next = target->next;
 		newNode->data = data;
-		newNode->dashData = 0;
+		newNode->dashData = malloc(sizeof(int) * inputBitLength);
 		newNode->checked = false;
 		target->next = newNode;
 		return newNode;

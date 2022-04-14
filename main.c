@@ -31,7 +31,7 @@ int main(void)
 		printf("============== Step 1 Succeed ==============\n\n");
 
 		printf("=============== Step 2 Start ===============\n\n");
-		step2Result = step2To3(4, groups);
+		step2Result = step2To3(4, groups, inputBitLength);
 		printf("============== Step 2 Succeed ==============\n\n");
 		printf("=============== Step 3 Start ===============\n\n");
 		step4To7(step2Result, minterms);
