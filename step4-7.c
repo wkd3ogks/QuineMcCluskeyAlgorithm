@@ -3,6 +3,10 @@
 #include "linkedlist.h"
 #include "step.h"
 
+
+//1. String1[n], String2[k]가 같다면 : [n, k] == [n-1, k-1] + 1
+//2. String1[n], String2[k]가 다르면 : [n, k] == [n - 1, k]와[n, k - 1] 중 큰 값
+
 void step4To7(Node* step2Result, Node* minterms, int row, int col) {
 	Node** tables = (Node*)malloc(sizeof(Node) * row + 1);
 	
@@ -14,7 +18,6 @@ void step4To7(Node* step2Result, Node* minterms, int row, int col) {
 	}
 	Node* current1 = step2Result->next;
 	Node* current2 = minterms->next; 
-	Node* tableX;
 	Node* beforeXNode;
 	Node* beforeYNode;
 	int index = 1;
