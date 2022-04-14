@@ -4,13 +4,13 @@
 typedef struct _Node {
 	struct _Node* next;
 	int data;
-	int* dashData;
+	int dashData;
 	bool checked;
 } Node;
 
 Node* LinkedList();
 
-Node* addNode(Node* target, int data, int inputBitLength);
+Node* addNode(Node* target, int data);
 Node* copyNode(Node* target, Node* object);
 
 void printAllNode(Node* head);
