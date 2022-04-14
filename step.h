@@ -7,4 +7,4 @@ void addStep2Result(Node* Group, Node* step2Result);
 void CompareGroups(Node* Group1, Node* Group2, int stdIndex, Node** newGroups, Node* step2Result);
 
 
-void step4To7(Node* step2Result, Node* minterms);
+void step4To7(Node* step2Result, Node* minterms, int row, int col);

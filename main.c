@@ -31,10 +31,10 @@ int main(void)
 		printf("============== Step 1 Succeed ==============\n\n");
 
 		printf("=============== Step 2 Start ===============\n\n");
-		step2Result = step2To3(4, groups, inputBitLength);
+		step2Result = step2To3(4, groups);
 		printf("============== Step 2 Succeed ==============\n\n");
 		printf("=============== Step 3 Start ===============\n\n");
-		step4To7(step2Result, minterms);
+		step4To7(step2Result, minterms, 7, 5);
 		printf("============== Step 3 Succeed ==============\n");
 		
 	}

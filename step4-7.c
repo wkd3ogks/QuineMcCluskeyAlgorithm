@@ -1,12 +1,53 @@
-//그냥 머리 텅~ 한 척하고 구현만 완성하자... 귀찮아!
-// 대쉬 데이터부분을 같은 값으로 조작하자.(& 연산과
-// 대쉬데이터로 민텀을 조작 -> 그 데쉬 데이터만 0 나머지는 1인 값이 있을 때 1111(inputBitLength) - 대쉬 데이터(ex. 8) -> 0111 --> 민텀
 #include <stdio.h>
 
 #include "linkedlist.h"
 #include "step.h"
 
-void step4To7(Node* step2Result, Node* minterms) {
-	printAllNode(step2Result);
-	printAllNode(minterms);
+void step4To7(Node* step2Result, Node* minterms, int row, int col) {
+	Node** tables = (Node*)malloc(sizeof(Node) * row + 1);
+	
+	for (int y = 0; y < row + 1; y++) {
+		tables[y] = LinkedList();
+	}
+	for (int x = 0; x < col + 1; x++) {
+		addNode(tables[0], 0);
+	}
+	Node* current1 = step2Result->next;
+	Node* current2; 
+	Node* tableX;
+	Node* beforeXNode;
+	Node* beforeYNode;
+	int index = 1;
+	while (current1 != NULL) {
+		addNode(tables[index], 0);
+		beforeYNode = tables[index - 1]->next;
+		beforeXNode = tables[index]->next;
+		current2 = minterms->next;
+		while (current2 != NULL)
+		{
+			//printf("test : %d %d\n", current1->data, current2->data);
+			int data = checkX(current2->data, current1->data, current1->dashData);
+			if (beforeYNode->data + data > beforeXNode->data) {
+				addNode(tables[index], beforeYNode->data + data);
+			}
+			current2 = current2->next;
+			beforeXNode->next;
+			beforeYNode->next;
+		}
+		
+		index++;
+		current1 = current1->next;
+	}
+	for (int y = 0; y < row + 1; y++) {
+		printAllNode(tables[y]);
+	}
+ 	
+}
+
+int checkX(int mintermData, int step2ResultData, int step2ResultDashData) {
+	int equate = !(step2ResultDashData & mintermData);
+	if (equate & step2ResultData == step2ResultData) {
+		return 1;
+	}
+	return 0;
 }
