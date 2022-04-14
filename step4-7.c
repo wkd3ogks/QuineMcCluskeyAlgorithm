@@ -1,1 +1,1 @@
-#pragma once
+//초기 입력값에 해당 dash 뺏을때 같다면 X체크

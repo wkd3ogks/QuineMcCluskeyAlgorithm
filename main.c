@@ -24,11 +24,14 @@ int main(void)
 {
 	int    inputBitLength;
 	Node** groups = step1(&inputBitLength);
-
+	Node* step2Result;
 	printf("[ QuineMcCluskeyAlgorithm Start ] \n\n");
 	if (groups != NULL) {
 		printf("============== Step 1 Succeed ==============\n\n");
-		step2To3(4, groups);
+
+		printf("=============== Step 2 Start ===============\n\n");
+		step2Result = step2To3(4, groups);
+		printf("============== Step 2 Succeed ==============\n");
 	}
 	else {
 		printf("============== Step 1 Failed. ==============\n\n");

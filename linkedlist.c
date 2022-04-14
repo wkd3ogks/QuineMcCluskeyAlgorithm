@@ -8,6 +8,8 @@ Node* addNode(Node* target, int data) {
 	if ((newNode = (Node *)malloc(sizeof(Node))) != NULL) {
 		newNode->next = target->next;
 		newNode->data = data;
+		newNode->dashData = 0;
+		newNode->checked = false;
 		target->next = newNode;
 		return newNode;
 	}
@@ -15,9 +17,21 @@ Node* addNode(Node* target, int data) {
 		printf("[ ERROR ] Can't Add new Element in LinkedList (malloc Function Return NULL)\n");
 		return NULL;
 	}
-
 }
-
+Node* copyNode(Node* target, Node* object) {
+	Node* newNode;
+	if ((newNode = (Node*)malloc(sizeof(Node))) != NULL) {
+		newNode->next = target->next;
+		newNode->data = object->data;
+		newNode->checked = object->checked;
+		target->next = newNode;
+		return newNode;
+	}
+	else {
+		printf("[ ERROR ] Can't Add new Element in LinkedList (malloc Function Return NULL)\n");
+		return NULL;
+	}
+}
  Node* LinkedList() {
 	 Node* head;
 	 if ((head = (Node*)malloc(sizeof(Node))) != NULL) {
@@ -62,4 +76,16 @@ Node* addNode(Node* target, int data) {
 	 }
 
 	 free(removeNode);    // 노드 메모리 해제
+ }
+
+ 
+ void deleteLinkedList(Node* head) {
+	 
+	 Node* before = head;
+	 Node* current = head->next;
+	 while (current != NULL) {
+		 before = current;
+		 current = current->next;
+		 free(before);
+	 }
  }
