@@ -6,14 +6,12 @@
 
 #define BUFFERSIZE 200
 
-Node** step1(int* inputBitLength) {
+Node** step1(int* inputBitLength, Node* minterms) {
 	printf("=============== Step 1 Start ===============\n");
 	FILE* fp;
 	char buffer[BUFFERSIZE];
 	Node** groups;
 
-	// TODO : binary 모드로 오픈해보는 것도 생각해보자.
-	// 파일 입출력 관련 : https://robodream.tistory.com/158
 	fp = fopen("input_minterm.txt", "r");
 	int parsedData;
 	if (fp != NULL) {
@@ -31,7 +29,7 @@ Node** step1(int* inputBitLength) {
 			}
 
 			while (fgets(buffer, BUFFERSIZE, fp) != NULL) {
-				parsedData = parseBinaryData(groups, buffer, *inputBitLength);
+				parsedData = parseBinaryData(groups, buffer, *inputBitLength, minterms);
 				printf(">>> [Parse Data] : % d, [Original Data] %s\n", parsedData, buffer);
 			}
 			for (int i = 0; i <= *inputBitLength; i++) {
@@ -52,7 +50,7 @@ Node** step1(int* inputBitLength) {
 }
 
 
-int parseBinaryData(Node** groups, char* inputData, int inputBitLength) {
+int parseBinaryData(Node** groups, char* inputData, int inputBitLength, Node* minterms) {
 	// 의미상 가장 최상위 비트는 모드를 의미한다.(1이면 Don't Care) ex. InputBitLength = 4 -> 2^5에서 모드를 결정함.
 
 	int mode = inputData[0];
@@ -64,7 +62,9 @@ int parseBinaryData(Node** groups, char* inputData, int inputBitLength) {
 		decimal += squareOf2 * (inputData[i] - 48);
 		squareOf2 *= 2;
 	}
-
+	if (mode == 'm') {
+		addNode(minterms, decimal);
+	}
 	//decimal = decimal | (squareOf2 * (mode == 'd' ? 1 : 0));
 	
 	/*

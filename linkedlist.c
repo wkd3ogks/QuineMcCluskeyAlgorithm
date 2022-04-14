@@ -18,6 +18,7 @@ Node* addNode(Node* target, int data) {
 		return NULL;
 	}
 }
+
 Node* copyNode(Node* target, Node* object) {
 	Node* newNode;
 	if ((newNode = (Node*)malloc(sizeof(Node))) != NULL) {

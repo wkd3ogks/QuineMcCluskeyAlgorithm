@@ -23,7 +23,8 @@
 int main(void) 
 {
 	int    inputBitLength;
-	Node** groups = step1(&inputBitLength);
+	Node* minterms = LinkedList();
+	Node** groups = step1(&inputBitLength, minterms);
 	Node* step2Result;
 	printf("[ QuineMcCluskeyAlgorithm Start ] \n\n");
 	if (groups != NULL) {
@@ -31,7 +32,11 @@ int main(void)
 
 		printf("=============== Step 2 Start ===============\n\n");
 		step2Result = step2To3(4, groups);
-		printf("============== Step 2 Succeed ==============\n");
+		printf("============== Step 2 Succeed ==============\n\n");
+		printf("=============== Step 3 Start ===============\n\n");
+		step4To7(step2Result, minterms);
+		printf("============== Step 3 Succeed ==============\n");
+		
 	}
 	else {
 		printf("============== Step 1 Failed. ==============\n\n");
@@ -39,5 +44,3 @@ int main(void)
 	printf("[ QuineMcCluskeyAlgorithm End ] ");
 	return 0;
 }
-
-// Step2 Ω√¿€
