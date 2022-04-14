@@ -13,7 +13,7 @@ void step4To7(Node* step2Result, Node* minterms, int row, int col) {
 		addNode(tables[0], 0);
 	}
 	Node* current1 = step2Result->next;
-	Node* current2; 
+	Node* current2 = minterms->next; 
 	Node* tableX;
 	Node* beforeXNode;
 	Node* beforeYNode;
@@ -25,10 +25,13 @@ void step4To7(Node* step2Result, Node* minterms, int row, int col) {
 		current2 = minterms->next;
 		while (current2 != NULL)
 		{
-			//printf("test : %d %d\n", current1->data, current2->data);
+			printf("test : %d %d\n", current1->data, current2->data);
 			int data = checkX(current2->data, current1->data, current1->dashData);
 			if (beforeYNode->data + data > beforeXNode->data) {
 				addNode(tables[index], beforeYNode->data + data);
+			}
+			else {
+				addNode(tables[index], beforeXNode->data + data);
 			}
 			current2 = current2->next;
 			beforeXNode->next;
@@ -38,8 +41,13 @@ void step4To7(Node* step2Result, Node* minterms, int row, int col) {
 		index++;
 		current1 = current1->next;
 	}
-	for (int y = 0; y < row + 1; y++) {
-		printAllNode(tables[y]);
+	int pp = 1;
+	current1 = step2Result->next;
+	while (current1 != NULL) {
+		printf("current1 : %d ", current1->data);
+		printAllNode(tables[pp]);
+		current1 = current1->next;
+		pp++;
 	}
  	
 }
