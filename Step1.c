@@ -63,7 +63,7 @@ int parseBinaryData(Node** groups, char* inputData, int inputBitLength, Node* mi
 		squareOf2 *= 2;
 	}
 	if (mode == 'm') {
-		addNode(minterms, decimal, inputBitLength);
+		addNode(minterms, decimal);
 	}
 	//decimal = decimal | (squareOf2 * (mode == 'd' ? 1 : 0));
 	
@@ -83,8 +83,8 @@ int parseBinaryData(Node** groups, char* inputData, int inputBitLength, Node* mi
 	return decimal;
 }
 
-void assignToGroup(Node** groups, int oneCnt, int data, int inputBitLength) {
-	addNode(groups[oneCnt], data, inputBitLength);
+void assignToGroup(Node** groups, int oneCnt, int data) {
+	addNode(groups[oneCnt], data);
 	// printf("Groups %d : %d", oneCnt, groups[oneCnt]->next->data);
 }
 
