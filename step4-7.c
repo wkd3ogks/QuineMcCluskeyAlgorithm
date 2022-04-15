@@ -3,101 +3,104 @@
 #include "linkedlist.h"
 #include "step.h"
 
-
+int checkLoop(int* arr, int col);
 //1. String1[n], String2[k]가 같다면 : [n, k] == [n-1, k-1] + 1
 //2. String1[n], String2[k]가 다르면 : [n, k] == [n - 1, k]와[n, k - 1] 중 큰 값
 
+typedef struct _record {
+	int data;
+	int dashData;
+} record;
+
 
 void step4To7(Node* step2Result, Node* minterms, int row, int col) {
-	Node** tables = (Node*)malloc(sizeof(Node) * row + 1);
-	Node*** primeTables = (Node**)malloc(sizeof(Node *) * row + 1);
-
-	for (int y = 0; y < row + 1; y++) {
-		tables[y] = LinkedList();
-		primeTables[y] = (Node* )malloc(sizeof(Node) * col + 1);
-		for (int x = 0; x < col + 1; x++) {
-			primeTables[y][x] = LinkedList();
+	Node* result = malloc(sizeof(Node) * row);
+	int* checkedminterm = (int* )malloc(sizeof(int) * col);
+	Node* curr = minterms->next;
+	for (int i = 0; i < col; i++) {
+		checkedminterm[i] = 0;
+	}
+	int** tables = (int** )malloc(sizeof(int* ) * row);
+	for (int i = 0; i < row + 1; i++) {
+		tables[i] = (int*)malloc(sizeof(int) * col);
+		for (int j = 0; j < col + 1; j++) {
+			tables[i][j] = 0;
 		}
 	}
-	
-	for (int x = 0; x < col + 1; x++) {
-		addNode(tables[0], 0);
-	}
 	Node* current1 = step2Result->next;
-	Node* current2 = minterms->next; 
-	Node* beforeXNode;
-	Node* beforeYNode;
-	int indexY = 1;
-	int indexX;
+	Node* current2;
+	int x = 0, y = 0;
 	while (current1 != NULL) {
-		addNode(tables[indexY], 0);
-		beforeYNode = tables[indexY - 1]->next;
-		beforeXNode = tables[indexY]->next;
 		current2 = minterms->next;
-		indexX = 1;
+		x = 0;
 		while (current2 != NULL)
 		{
 			printf("test : %d %d\n", current1->data, current2->data);
 			int data = checkX(current2->data, current1->data, current1->dashData);
 			if(data == 1) {
-				printf("addNumber\tbeforeYNode data : %d\t\n", beforeYNode->data);
-				addNode(tables[indexY], beforeYNode->data + 1);
-				Node* curr = primeTables[indexY - 1][indexX - 1]->next;
-				while (curr != NULL) {
-					Node* more;
-					more = addNode(primeTables[indexY][indexX], curr->data);
-					more->dashData = curr->dashData;
-					curr = curr->next;
-				}
-				Node* more;
-				more = addNode(primeTables[indexY][indexX], current1->data);
-				more->dashData = current1->dashData;
-			}
-			else {
-				addNode(tables[indexY], beforeXNode->data > beforeYNode->data ? beforeXNode->data : beforeYNode->data);
-				if (beforeXNode->data > beforeYNode->data) {
-					Node* curr = primeTables[indexY][indexX - 1]->next;
-					while (curr != NULL) {
-						Node* more;
-						more = addNode(primeTables[indexY][indexX], curr->data);
-						more->dashData = curr->dashData;
-						curr = curr->next;
-					}
-				}
-				else {
-					Node* curr = primeTables[indexY - 1][indexX - 1]->next;
-					while (curr != NULL) {
-						Node* more;
-						more = addNode(primeTables[indexY][indexX], curr->data);
-						more->dashData = curr->dashData;
-						curr = curr->next;
-					}
-				}
+				tables[y][x] = 1;
 			}
 			current2 = current2->next;
-			beforeXNode->next;
-			beforeYNode->next;
-			indexX++;
+			x++;
 		}
-		
-		indexY++;
 		current1 = current1->next;
+		y++;
 	}
-	int pp = 0;
-	current1 = step2Result;
-	while (current1 != NULL) {
-		printf("current1 : %d ", current1->data);
-		printAllNode(tables[pp]);
-		current1 = current1->next;
-		pp++;
+	curr = checkedminterm;
+
+	while (checkLoop(checkedminterm, col)) {
+		Node max;
+		//printf("Test");
+		int maxCnt = 0;
+		int maxY = 0;
+		int changeCnt;
+		current1 = step2Result->next;
+		x = 0, y = 0;
+		while (current1 != NULL) {
+			changeCnt = 0;
+			current2 = minterms->next;
+			x = 0;
+			while (current2 != NULL)
+			{
+				if (checkedminterm[x] == 0) {
+					if (tables[y][x] == 1) {
+						changeCnt += 1;
+					}
+				}
+				current2 = current2->next;
+				x++;
+			}
+			if (maxCnt < changeCnt) {
+				maxCnt = changeCnt;
+				maxY = y;
+				max.data = current1->data;
+				max.dashData = current1->dashData;
+			}
+			current1 = current1->next;
+			y++;
+		}
+		printf("maxCnt : %d, max.Data : %d, max.dashData : %d \n", maxCnt, max.data, max.dashData);
+		for (int q = 0; q < col; q++) {
+			if (tables[maxY][q] == 1) {
+				checkedminterm[q] = 1;
+			}
+		}
 	}
- 	
 }
 
 int checkX(int mintermData, int step2ResultData, int step2ResultDashData) {
 	unsigned int equate = (~step2ResultDashData) & mintermData;
 	if (equate == step2ResultData) {
 		return 1;
+	}
+	return 0;
+}
+
+int checkLoop(int* arr, int col) {
+	for (int i = 0; i < col; i++) {
+		if (arr[i] == 0) {
+			return 1;
+		}
 	}
 	return 0;
 }
