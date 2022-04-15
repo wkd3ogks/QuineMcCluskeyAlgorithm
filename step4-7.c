@@ -15,6 +15,7 @@ typedef struct _record {
 
 void step4To7(Node* step2Result, Node* minterms, int row, int col) {
 	Node* result = malloc(sizeof(Node) * row);
+	int orGate, AndGate, NotGate;
 	int* checkedminterm = (int* )malloc(sizeof(int) * col);
 	Node* curr = minterms->next;
 	for (int i = 0; i < col; i++) {
@@ -103,4 +104,13 @@ int checkLoop(int* arr, int col) {
 		}
 	}
 	return 0;
+}
+ 
+
+// 이진수로 데이터가 들어있다.
+void MakeOutput(int Data, int hashData, int inputBitLength) {
+	char* output = (char*)malloc(sizeof(char) * inputBitLength);
+	for (int i = 0; i < inputBitLength; i++) {
+		output[i] = Data + 48;
+	}
 }
