@@ -16,7 +16,7 @@ typedef struct _record {
 } record;
 
 
-void step4To7(Node* step2Result, Node* minterms, int row, int col) {
+void step4To7(Node* step2Result, Node* minterms, int row, int col, int inputBitLength) {
 	FILE* fp = fopen("result.txt", "w");
 	Node* result = malloc(sizeof(Node) * row);
 	int orGate = 0, AndGate = 0, NotGate = 0;
@@ -84,7 +84,7 @@ void step4To7(Node* step2Result, Node* minterms, int row, int col) {
 			y++;
 		}
 		printf("maxCnt : %d, max.Data : %d, max.dashData : %d \n", maxCnt, max.data, max.dashData);
-		orGate += MakeOutput(max.data, max.dashData, 4, fp, &NotGate, &AndGate);
+		orGate += MakeOutput(max.data, max.dashData, inputBitLength, fp, &NotGate, &AndGate);
 		for (int q = 0; q < col; q++) {
 			if (tables[maxY][q] == 1) {
 				checkedminterm[q] = 1;
