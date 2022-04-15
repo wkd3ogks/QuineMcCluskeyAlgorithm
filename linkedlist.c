@@ -18,6 +18,21 @@ Node* addNode(Node* target, int data) {
 		return NULL;
 	}
 }
+extendsNode* addExtendsNode(Node* target, extendsNode* data) {
+	extendsNode* newNode;
+	if ((newNode = (Node*)malloc(sizeof(Node))) != NULL) {
+		newNode->next = target->next;
+		newNode->data = data;
+		newNode->dashData = 0;
+		newNode->checked = false;
+		target->next = newNode;
+		return newNode;
+	}
+	else {
+		printf("[ ERROR ] Can't Add new Element in LinkedList (malloc Function Return NULL)\n");
+		return NULL;
+	}
+}
 
 Node* copyNode(Node* target, Node* object) {
 	Node* newNode;
