@@ -1,9 +1,12 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 
 #include "linkedlist.h"
 #include "step.h"
 
 int checkLoop(int* arr, int col);
+int MakeOutput(int Data, int dashData, int inputBitLength, FILE* fp, int* notGate, int* andGate);
 //1. String1[n], String2[k]가 같다면 : [n, k] == [n-1, k-1] + 1
 //2. String1[n], String2[k]가 다르면 : [n, k] == [n - 1, k]와[n, k - 1] 중 큰 값
 
@@ -14,8 +17,9 @@ typedef struct _record {
 
 
 void step4To7(Node* step2Result, Node* minterms, int row, int col) {
+	FILE* fp = fopen("result.txt", "w");
 	Node* result = malloc(sizeof(Node) * row);
-	int orGate, AndGate, NotGate;
+	int orGate = 0, AndGate = 0, NotGate = 0;
 	int* checkedminterm = (int* )malloc(sizeof(int) * col);
 	Node* curr = minterms->next;
 	for (int i = 0; i < col; i++) {
@@ -47,7 +51,6 @@ void step4To7(Node* step2Result, Node* minterms, int row, int col) {
 		current1 = current1->next;
 		y++;
 	}
-	curr = checkedminterm;
 
 	while (checkLoop(checkedminterm, col)) {
 		Node max;
@@ -81,12 +84,21 @@ void step4To7(Node* step2Result, Node* minterms, int row, int col) {
 			y++;
 		}
 		printf("maxCnt : %d, max.Data : %d, max.dashData : %d \n", maxCnt, max.data, max.dashData);
+		orGate += MakeOutput(max.data, max.dashData, 4, fp, &NotGate, &AndGate);
 		for (int q = 0; q < col; q++) {
 			if (tables[maxY][q] == 1) {
 				checkedminterm[q] = 1;
 			}
 		}
 	}
+	if (orGate > 1) {
+		orGate = orGate * 2 + 2;
+	}
+	else {
+		orGate = 0;
+	}
+	fprintf(fp, "\nCost (# of transistors): %d", orGate + NotGate + AndGate);
+	fclose(fp);
 }
 
 int checkX(int mintermData, int step2ResultData, int step2ResultDashData) {
@@ -108,9 +120,31 @@ int checkLoop(int* arr, int col) {
  
 
 // 이진수로 데이터가 들어있다.
-void MakeOutput(int Data, int hashData, int inputBitLength) {
+int MakeOutput(int Data, int dashData, int inputBitLength, FILE* fp, int* notGate, int* andGate) {
 	char* output = (char*)malloc(sizeof(char) * inputBitLength);
+	int dashCnt = 0;
 	for (int i = 0; i < inputBitLength; i++) {
-		output[i] = Data + 48;
+		output[i] = 0;
 	}
+	for (int i = 0; i < inputBitLength; i++) {
+		output[inputBitLength - i - 1] = (Data % 2) + 48;
+		Data = Data / 2;
+	}
+	for (int i = 0; i < inputBitLength; i++) {
+		if (dashData % 2 == 1) {
+			output[inputBitLength - i - 1] = '_';
+			dashCnt += 1;
+		}
+		dashData = dashData / 2;
+		 
+	}
+	for (int i = 0; i < inputBitLength; i++) {
+		if (output[i] == '0') {
+			*notGate += 2;
+		}
+		fprintf(fp, "%c", output[i]);
+	}
+	*andGate += (inputBitLength - dashCnt) * 2 + 2;
+	fprintf(fp, "\n");
+	return 1;
 }
